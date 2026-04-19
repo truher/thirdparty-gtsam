@@ -68,10 +68,14 @@ if (!project.hasProperty('platform')) {
 ext.platformPath = getPlatformPath(project.platform)
 def outputClassifierStatic = ext.platformPath.replaceFirst('/', '') + 'static'
 
+// the actual version is just a tag.
+// maybe this should be the tag itself, like, 4.3a1-573fa1d
+// for now i just incremented it.
 def pubVersion = "4.3-4"
 
 def outputsFolder = file("$project.buildDir/outputs")
 
+// TODO: change frc2025 to something else.
 def baseArtifactId = 'gtsam'
 def artifactGroupId = 'edu.wpi.first.thirdparty.frc2025.gtsam'
 def zipBaseName = '_GROUP_edu_wpi_first_thirdparty_frc2025_gtsam_ID_gtsam-cpp_CLS'

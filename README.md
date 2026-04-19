@@ -9,8 +9,10 @@ Eigen and GTSAM are pulled in via Cmake using fetch content. To update either, c
 
 Use .github/workflows/main.yml as a guide, e.g. for linux:
 
-*  sudo apt-get install -y ninja-build build-essential libtbb-dev
-* ./gradlew publish -Pplatform=linux-x86_64
+```
+sudo apt-get install -y ninja-build build-essential libtbb-dev
+./gradlew publish -Pplatform=linux-x86_64
+```
 
 This will run:
 
@@ -58,3 +60,14 @@ https://github.com/borglab/gtsam/commit/573fa1d6230aef6dc81edc286cf9fc09ab9ce823
     GIT_TAG           573fa1d6230aef6dc81edc286cf9fc09ab9ce823
 
 ```
+
+Then run the build:
+
+```
+./gradlew publish -Pplatform=linux-x86_64
+```
+
+This build succeeds.
+
+The binary artifacts end up in `~/releases/maven`, so they can
+be served locally for testing.
