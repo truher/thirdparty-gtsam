@@ -109,3 +109,15 @@ gtsam-cpp-4.3a1+573fa1d-linuxx86-64static.zip
 gtsam-cpp-4.3a1+573fa1d-sources.zip
 ...etc...
 ```
+
+## Building for SystemCore
+
+Cross compiling for systemcore requires an aarch64 toolchain.
+
+In the workflow, the toolchain comes from the container.
+
+Here, we use the one I checked in:
+
+```
+./gradlew publish -Pplatform=linux-systemcore -Ptoolchain=systemcore-toolchain.cmake
+```
