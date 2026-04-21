@@ -11,7 +11,12 @@ set(HOST_DIR /opt/systemcore-aarch64-toolchain)
 
 set(CMAKE_FIND_ROOT_PATH ${HOST_DIR}/${CROSSCOMP_NAME})
 set(CMAKE_SYSROOT ${HOST_DIR}/${CROSSCOMP_NAME}/sysroot)
-set(CMAKE_STAGING_PREFIX /home/test)
+# Avoid this path
+# set(CMAKE_STAGING_PREFIX /home/test)
+# From wpilibsuite/opensdk
+# with some additional silencing
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-psabi -Wno-unused-parameter -Wno-stringop-overflow -Wno-array-bounds")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-psabi -Wno-unused-parameter -Wno-stringop-overflow -Wno-array-bounds")
 
 set(CMAKE_C_COMPILER ${HOST_DIR}/bin/${CROSSCOMP_NAME}-gcc)
 set(CMAKE_CXX_COMPILER ${HOST_DIR}/bin/${CROSSCOMP_NAME}-g++)

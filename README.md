@@ -121,3 +121,32 @@ Here, we use the one I checked in:
 ```
 ./gradlew publish -Pplatform=linux-systemcore -Ptoolchain=systemcore-toolchain.cmake
 ```
+
+## Systemcore flags
+
+In the cross-compile, I found it useful to add a few flags:
+
+* -Wno-psabi -- silence many warnings about C++17/C++14 compatibility
+* -Wno-unused-parameter -- silence one warning
+* -Wno-stringop-overflow -- prevent the build from failing due to overeager static analysis
+* -Wno-array-bound -- same as above
+
+## Checking architecture
+
+Unpack one of the artifacts (in $HOME/releases/maven) and look at it.  Note the "Machine" type here:
+
+```
+readelf -h libgtsamRelWithDebInfo.a | head -20
+
+File: libgtsamRelWithDebInfo.a(ccolamd.c.o)
+ELF Header:
+  Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF64
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           AArch64
+...
+```

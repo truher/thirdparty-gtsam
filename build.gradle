@@ -62,8 +62,9 @@ def getPlatformPath(platform) {
 }
 
 if (!project.hasProperty('platform')) {
-    println "No 'platform' property specified; using the build system's platform"
-    ext.platform = getPlatform()
+    throw new GradleException("No 'platform' property specified")
+    // println "No 'platform' property specified; using the build system's platform"
+    // ext.platform = getPlatform()
 }
 ext.platformPath = getPlatformPath(project.platform)
 def outputClassifierStatic = ext.platformPath.replaceFirst('/', '') + 'static'
