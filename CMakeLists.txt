@@ -23,16 +23,16 @@ fetchcontent_declare(
     OVERRIDE_FIND_PACKAGE
 )
 
-# Fetch GTSAM 4.3a1 + assert fix
-# https://github.com/borglab/gtsam/commit/573fa1d6230aef6dc81edc286cf9fc09ab9ce823
+# Fetch GTSAM 4.3a1 + planar gyro
+# https://github.com/borglab/gtsam/commit/60a875819f6986ff459e6fe40f66ac33b454c475
 set(GTSAM_COMPILE_OPTIONS_PRIVATE_DEBUG CACHE INTERNAL FORCE)
 set(GTSAM_COMPILE_OPTIONS_PRIVATE_RELWITHDEBINFO CACHE INTERNAL FORCE)
 set(GTSAM_ENABLE_BOOST_SERIALIZATION OFF)
 set(GTSAM_USE_BOOST_FEATURES OFF)
 # Don't worry about distributing libtbb.
 set(GTSAM_WITH_TBB OFF)
-# Don't throw a C++ exception that's hard to catch.
-set(GTSAM_THROW_CHEIRALITY_EXCEPTION OFF)
+# Throw when landmark is behind camera.
+set(GTSAM_THROW_CHEIRALITY_EXCEPTION ON)
 # Don't use the "unstable" part of GTSAM
 set(GTSAM_BUILD_UNSTABLE OFF)
 set(GTSAM_BUILD_PYTHON OFF)
@@ -43,9 +43,19 @@ set(GTSAM_USE_SYSTEM_EIGEN ON)
 if(CMAKE_CXX_COMPILER_ID STREQUAL GNU)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-use-after-free")
 endif()
+#
+# THE REAL ONE
+#
+#fetchcontent_declare(
+#    gtsam
+#    GIT_REPOSITORY    https://github.com/borglab/gtsam
+#    GIT_TAG           60a875819f6986ff459e6fe40f66ac33b454c475
+#)
+#
+# FOR development
+#
 fetchcontent_declare(
     gtsam
-    GIT_REPOSITORY    https://github.com/borglab/gtsam
-    GIT_TAG           573fa1d6230aef6dc81edc286cf9fc09ab9ce823
+    SOURCE_DIR "${CMAKE_SOURCE_DIR}/../gtsam"
 )
 fetchcontent_makeavailable(gtsam)

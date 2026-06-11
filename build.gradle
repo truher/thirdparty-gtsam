@@ -70,7 +70,7 @@ ext.platformPath = getPlatformPath(project.platform)
 def outputClassifierStatic = ext.platformPath.replaceFirst('/', '') + 'static'
 
 // GTSAM version 4.3a1 with one more commit
-def pubVersion = "4.3a1+573fa1d"
+def pubVersion = "4.3a1+60a8758"
 
 def outputsFolder = file("$project.buildDir/outputs")
 

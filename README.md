@@ -5,27 +5,44 @@ Third party gradle packaging for gtsam
 
 Eigen and GTSAM are pulled in via Cmake using fetch content. To update either, change the SHA or tag in [CMakeLists.txt](CMakeLists.txt). Eigen is required to be pulled in like this to avoid conflicts with wpimath.
 
-## GTSAM version 4.3a1+573fa1d
+## GTSAM version 4.3a1+60a8758
 
-As of April 2026, the most-recent GTSAM development release is
+As of May 2026, the most-recent GTSAM development release is
 [4.3a1](https://github.com/borglab/gtsam/commit/2f3e56c0ddbd3a1aa54ed043643b553d26a069f6),
 but it fails to build, due to the use of "assert" in SL4.cpp.
 
 This assert was 
 [removed](https://github.com/borglab/gtsam/commit/573fa1d6230aef6dc81edc286cf9fc09ab9ce823)
 immediately after the 4.3a1 tag,
+
+I added the "planar gyro" factor in commit 60a8758,
+[here](https://github.com/borglab/gtsam/commit/60a875819f6986ff459e6fe40f66ac33b454c475).
+
 so the GTSAM "fetchcontent" stanza is:
 
 ```
+fetchcontent_declare(
     gtsam
     GIT_REPOSITORY    https://github.com/borglab/gtsam
-    GIT_TAG           573fa1d6230aef6dc81edc286cf9fc09ab9ce823
+    GIT_TAG           60a875819f6986ff459e6fe40f66ac33b454c475
+)
 ```
 
 And the published version in build.gradle is
 
 ```
-def pubVersion = "4.3a1+573fa1d"
+def pubVersion = "4.3a1+60a8758"
+```
+
+## GTSAM local development version
+
+If you're working on GTSAM itself, you need to use a different fetchcontent stanza.  In my case these directories are parallel, so it looks like this:
+
+```
+fetchcontent_declare(
+    gtsam
+    SOURCE_DIR "${CMAKE_SOURCE_DIR}/../gtsam"
+)
 ```
 
 ## Eigen version 5.0.0
@@ -53,11 +70,11 @@ to the CMakeLists.txt file.
 ## Cheirality Exception
 
 By default, GTSAM will throw a C++ exception in cases where a camera transform
-is attempted with the target "behind" the camera.  I don't want to deal with that,
-so I turned off the exception.
+is attempted with the target "behind" the camera.  We need that,
+so make sure it happens:
 
 ```cmake
-set(GTSAM_THROW_CHEIRALITY_EXCEPTION OFF)
+set(GTSAM_THROW_CHEIRALITY_EXCEPTION ON)
 ```
 
 ## Unstable
@@ -104,9 +121,9 @@ The build will publish into $HOME/releases/maven, which can
 be served locally for testing, e.g.:
 
 ```
-$HOME/releases/maven/release/edu/wpi/first/thirdparty/frc2026/gtsam/gtsam-cpp/4.3a1+573fa1d:
-gtsam-cpp-4.3a1+573fa1d-linuxx86-64static.zip
-gtsam-cpp-4.3a1+573fa1d-sources.zip
+$HOME/releases/maven/release/edu/wpi/first/thirdparty/frc2026/gtsam/gtsam-cpp/4.3a1+60a8758:
+gtsam-cpp-4.3a1+60a8758-linuxx86-64static.zip
+gtsam-cpp-4.3a1+60a8758-sources.zip
 ...etc...
 ```
 
