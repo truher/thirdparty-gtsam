@@ -17,7 +17,7 @@ set(EIGEN_BUILD_CMAKE_PACKAGE ON)
 fetchcontent_declare(
     Eigen3
     GIT_REPOSITORY    https://gitlab.com/libeigen/eigen.git
-    GIT_TAG           549bf8c75b6aae071cde2f28aa48f16ee3ae60b0
+    GIT_TAG           bc3b39870ecb690a623a3f49149a358b95c5781d # This is the latest release of Eigen, 5.0.1
     SYSTEM # Ignore warnings
     # Make gtsam pick up this Eigen as our system Eigen
     OVERRIDE_FIND_PACKAGE
@@ -41,11 +41,12 @@ set(GTSAM_BUILD_TESTS OFF)
 set(BUILD_SHARED_LIBS OFF)
 set(GTSAM_USE_SYSTEM_EIGEN ON)
 if(CMAKE_CXX_COMPILER_ID STREQUAL GNU)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-use-after-free")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-use-after-free -Wno-error=maybe-uninitialized")
 endif()
+
 fetchcontent_declare(
     gtsam
     GIT_REPOSITORY    https://github.com/borglab/gtsam
-    GIT_TAG           573fa1d6230aef6dc81edc286cf9fc09ab9ce823
+    GIT_TAG           fc790b0916a81a56077fc197ad8259d5efa63972
 )
 fetchcontent_makeavailable(gtsam)
