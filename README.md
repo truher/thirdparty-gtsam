@@ -167,3 +167,12 @@ ELF Header:
   Machine:                           AArch64
 ...
 ```
+
+## Update for 2027
+
+the above seems to put the wrong arch in the systemcore zip.
+
+ah, i think the reason is that it "publishes" whatever is built,
+without checking anything, so you have to delete the build directories
+when you change arch.
+
