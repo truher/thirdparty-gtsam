@@ -124,7 +124,9 @@ task outputVersions() {
     task "cmakeBuild$buildType"(type: Exec) {
         dependsOn "cmakeConfigure$buildType"
         def processors = Runtime.runtime.availableProcessors()
-        def baseArgs = ["--build", buildDir, "--parallel", "$processors", "--target", "install"]
+        // avoid running out of RAM
+        // def baseArgs = ["--build", buildDir, "--parallel", "$processors", "--target", "install"]
+        def baseArgs = ["--build", buildDir, "--parallel", "2", "--target", "install"]
         outputs.dirs buildDir, installDir
         executable "cmake"
         args baseArgs
