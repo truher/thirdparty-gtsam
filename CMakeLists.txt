@@ -54,8 +54,17 @@ endif()
 #
 # FOR development
 #
+#fetchcontent_declare(
+#    gtsam
+#    SOURCE_DIR "${CMAKE_SOURCE_DIR}/../gtsam"
+#)
+#
+# my development version
+#
 fetchcontent_declare(
     gtsam
-    SOURCE_DIR "${CMAKE_SOURCE_DIR}/../gtsam"
+    GIT_REPOSITORY    https://github.com/truher/gtsam
+    GIT_TAG           410c744ac5f0c87b649830619b6b9c5404153268
 )
+
 fetchcontent_makeavailable(gtsam)
