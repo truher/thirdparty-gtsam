@@ -64,7 +64,7 @@ endif()
 fetchcontent_declare(
     gtsam
     GIT_REPOSITORY    https://github.com/truher/gtsam
-    GIT_TAG           410c744ac5f0c87b649830619b6b9c5404153268
+    GIT_TAG           14b6af5aad1b254dc71cb15dd714fb39d1125984
 )
 
 fetchcontent_makeavailable(gtsam)
